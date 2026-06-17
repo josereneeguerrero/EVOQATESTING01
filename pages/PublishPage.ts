@@ -4,7 +4,10 @@ export class PublishPage {
   constructor(private page: Page) {}
 
   async goToSettings() {
-    await this.page.getByRole('tab', { name: 'Settings' }).click();
+    const settingsTab = this.page.getByRole('tab', { name: 'Settings' });
+    // Wait for the tab to be enabled — it's disabled while the project is still initializing
+    await expect(settingsTab).not.toBeDisabled({ timeout: 30_000 });
+    await settingsTab.click();
   }
 
   async clickPublish() {

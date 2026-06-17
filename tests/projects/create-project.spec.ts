@@ -21,6 +21,6 @@ test.describe('Create project flow', () => {
     // Confirm the survey editor loaded — the title is an editable input,
     // so verify stable editor chrome instead of matching text content.
     await expect(page.getByRole('tab', { name: 'Questions' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Add' })).toBeVisible();
+    await expect(page.locator('[data-test="add-question-button"]')).toBeVisible();
   });
 });
