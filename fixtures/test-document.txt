@@ -1,0 +1,4 @@
+TheySaid QA Assessment — Test Document
+Product: AI-powered survey and research platform.
+Features: voice moderation, AI interviews, real-time analytics.
+This file is used by automated upload tests.
