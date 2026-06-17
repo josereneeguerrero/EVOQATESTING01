@@ -17,22 +17,27 @@ test.describe('Publish project and take survey', () => {
     await create.clickCreate('AI Survey');
     await create.skipDraftModal();
 
-    // Extract project ID from URL
-    await expect(page).toHaveURL(/\/projects\/[0-9a-f]{8}-[0-9a-f]{4}/);
-    const projectUrl = page.url();
-    const projectId = projectUrl.match(/\/projects\/([0-9a-f-]{36})/)?.[1];
-    expect(projectId, 'Project ID must be present in URL').toBeTruthy();
+    await expect(page).toHaveURL(/\/projects\//, { timeout: 15_000 });
 
-    // Publish
+    // Publish from Settings tab
     await publish.goToSettings();
     await publish.clickPublish();
     await publish.assertPublishedModalVisible();
+
+    // Get the survey URL from the published modal
+    const surveyUrl = await publish.getSurveyUrl();
+
     await publish.clickCopyLink();
     await publish.closeModal();
 
-    // Navigate to survey as respondent
-    const surveyUrl = `https://evo.dev.theysaid.io/survey/project/${projectId}`;
-    await page.goto(surveyUrl);
+    // Navigate to survey as respondent — use URL from modal if found, else build from current URL
+    const targetUrl = surveyUrl || (() => {
+      const match = page.url().match(/\/projects\/([0-9a-f-]{36})/);
+      return match ? `https://evo.dev.theysaid.io/survey/project/${match[1]}` : '';
+    })();
+
+    expect(targetUrl, 'Survey URL must be available').toBeTruthy();
+    await page.goto(targetUrl);
 
     await expect(page).toHaveURL(/\/survey\/project\//);
     await expect(

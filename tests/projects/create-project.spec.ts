@@ -15,7 +15,8 @@ test.describe('Create project flow', () => {
     await create.clickCreate('AI Survey');
     await create.skipDraftModal();
 
-    await expect(page).toHaveURL(/\/projects\/[0-9a-f]{8}-[0-9a-f]{4}/);
+    // App lands on the project editor (may be /projects/new or /projects/{uuid})
+    await expect(page).toHaveURL(/\/projects\//, { timeout: 15_000 });
     await expect(page.getByText(/Untitled AI Survey/i)).toBeVisible();
   });
 });

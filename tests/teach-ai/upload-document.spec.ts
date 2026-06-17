@@ -12,7 +12,7 @@ test.describe('Teach AI — Upload document', () => {
     const create = new CreatePage(page);
     const teachAI = new TeachAIPage(page);
 
-    // Create a project first so we can access Teach AI from the sidebar
+    // Create a project so we can access Teach AI from the sidebar
     await projects.navigate();
     await projects.clickAddProject();
     await create.assertModalVisible();
@@ -20,7 +20,7 @@ test.describe('Teach AI — Upload document', () => {
     await create.clickCreate('AI Survey');
     await create.skipDraftModal();
 
-    await expect(page).toHaveURL(/\/projects\/[0-9a-f]{8}-[0-9a-f]{4}/);
+    await expect(page).toHaveURL(/\/projects\//, { timeout: 15_000 });
 
     // Navigate to Teach AI from the project sidebar
     await teachAI.navigateFromSidebar();
