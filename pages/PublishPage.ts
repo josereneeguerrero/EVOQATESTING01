@@ -18,13 +18,9 @@ export class PublishPage {
   }
 
   async getSurveyUrl(): Promise<string> {
-    const input = this.page.locator('input[value*="survey"]').first();
-    if (await input.isVisible({ timeout: 5_000 }).catch(() => false)) {
-      return input.inputValue();
-    }
-    // Fallback: read from any element containing the survey URL
-    const el = this.page.locator('[href*="survey/project"]').first();
-    return el.getAttribute('href').then(v => v ?? '');
+    const input = this.page.locator('input[value*="survey/project"]').first();
+    await input.waitFor({ state: 'visible', timeout: 10_000 });
+    return input.inputValue();
   }
 
   async clickCopyLink() {
