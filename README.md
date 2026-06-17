@@ -6,9 +6,7 @@ Playwright TypeScript end-to-end tests for the [TheySaid Evo](https://evo.dev.th
 
 ## Session Recording
 
-[Google Drive — Manual Exploration Recording](https://drive.google.com/your-link-here)
-
-> Replace the URL above with the actual Google Drive link before submission.
+[Google Drive — Manual Exploration Recording](https://drive.google.com/file/d/1fYekKIgbpULeBUUh4u_kG-mYY9u8dSpT/view?usp=drive_link)
 
 ---
 
