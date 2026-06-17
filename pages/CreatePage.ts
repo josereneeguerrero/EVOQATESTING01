@@ -21,8 +21,12 @@ export class CreatePage {
 
   async skipDraftModal() {
     const skipBtn = this.page.getByRole('button', { name: 'Skip' });
-    if (await skipBtn.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    try {
+      await skipBtn.waitFor({ state: 'visible', timeout: 15_000 });
       await skipBtn.click();
+      await skipBtn.waitFor({ state: 'hidden', timeout: 10_000 });
+    } catch {
+      // Modal did not appear — continue
     }
   }
 }

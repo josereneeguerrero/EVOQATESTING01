@@ -25,7 +25,6 @@ test.describe('Teach AI — Upload document', () => {
     // Navigate to Teach AI from the project sidebar
     await teachAI.navigateFromSidebar();
     await teachAI.uploadFile(FIXTURE);
-
-    await expect(page.getByText(/\d+\s*KB/i)).toBeVisible();
+    // Assertion is inside uploadFile — file card with filename must be visible
   });
 });

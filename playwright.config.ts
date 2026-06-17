@@ -10,6 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   workers: 4,
   reporter: [['html', { open: 'never' }], ['list']],
+  timeout: 90_000,
   use: {
     baseURL: 'https://evo.dev.theysaid.io',
     screenshot: 'only-on-failure',

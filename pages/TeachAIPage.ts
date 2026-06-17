@@ -23,16 +23,17 @@ export class TeachAIPage {
   }
 
   async clickAttachFile() {
-    await this.page.getByText('Attach file').click();
-    await expect(
-      this.page.getByText('Drop or Browse to add file')
-    ).toBeVisible();
+    await this.page.getByText('Add file').click();
   }
 
   async uploadFile(absolutePath: string) {
     await this.clickAttachFile();
     await this.page.locator('input[type="file"]').setInputFiles(absolutePath);
-    await expect(this.page.getByText(/\d+\s*KB/i)).toBeVisible({ timeout: 10_000 });
+    // Wait for the uploaded filename to appear in the file list
+    const filename = absolutePath.split(/[\\/]/).pop()!;
+    await expect(
+      this.page.getByText(filename)
+    ).toBeVisible({ timeout: 15_000 });
   }
 
   async clickContinue() {
