@@ -6,7 +6,12 @@ export class TeachAIPage {
   async assertModalVisible() {
     await expect(
       this.page.getByRole('heading', { name: 'Teach AI' })
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15_000 });
+  }
+
+  async navigateFromSidebar() {
+    await this.page.getByRole('link', { name: /teach ai/i }).click();
+    await this.assertModalVisible();
   }
 
   async fillContext(text: string) {

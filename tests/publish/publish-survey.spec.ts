@@ -1,22 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { ProjectsPage } from '../../pages/ProjectsPage';
-import { TeachAIPage } from '../../pages/TeachAIPage';
 import { CreatePage } from '../../pages/CreatePage';
 import { PublishPage } from '../../pages/PublishPage';
 
 test.describe('Publish project and take survey', () => {
   test('publishes a project and the survey URL loads for respondents', async ({ page }) => {
     const projects = new ProjectsPage(page);
-    const teachAI = new TeachAIPage(page);
     const create = new CreatePage(page);
     const publish = new PublishPage(page);
 
     // Create a fresh project
     await projects.navigate();
     await projects.clickAddProject();
-    await teachAI.assertModalVisible();
-    await teachAI.fillContext('QA automated test — publish and survey flow.');
-    await teachAI.clickContinue();
     await create.assertModalVisible();
     await create.selectType('AI Survey');
     await create.clickCreate('AI Survey');

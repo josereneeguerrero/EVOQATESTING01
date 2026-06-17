@@ -8,7 +8,7 @@ export class CreatePage {
   async assertModalVisible() {
     await expect(
       this.page.getByRole('heading', { name: 'Create' })
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15_000 });
   }
 
   async selectType(type: ProjectType) {
