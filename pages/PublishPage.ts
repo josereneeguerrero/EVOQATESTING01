@@ -17,12 +17,6 @@ export class PublishPage {
     ).toBeVisible({ timeout: 15_000 });
   }
 
-  async getSurveyUrl(): Promise<string> {
-    const input = this.page.locator('input[value*="survey/project"]').first();
-    await input.waitFor({ state: 'visible', timeout: 10_000 });
-    return input.inputValue();
-  }
-
   async clickCopyLink() {
     await this.page.getByRole('button', { name: 'Copy link' }).click();
   }
