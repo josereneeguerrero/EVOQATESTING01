@@ -11,8 +11,11 @@ export default defineConfig({
   workers: 4,
   reporter: [['html', { open: 'never' }], ['list']],
   timeout: 90_000,
+  expect: { timeout: 15_000 },
   use: {
     baseURL: 'https://evo.dev.theysaid.io',
+    actionTimeout: 15_000,
+    navigationTimeout: 30_000,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'retain-on-failure',

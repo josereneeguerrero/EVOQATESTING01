@@ -17,6 +17,10 @@ test.describe('Create project flow', () => {
 
     // App lands on the project editor (may be /projects/new or /projects/{uuid})
     await expect(page).toHaveURL(/\/projects\//, { timeout: 15_000 });
-    await expect(page.getByText(/Untitled AI Survey/i)).toBeVisible();
+
+    // Confirm the survey editor loaded — the title is an editable input,
+    // so verify stable editor chrome instead of matching text content.
+    await expect(page.getByRole('tab', { name: 'Questions' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Add' })).toBeVisible();
   });
 });
